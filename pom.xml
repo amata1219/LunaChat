@@ -3,7 +3,7 @@
   <groupId>com.github.ucchyocean</groupId>
   <artifactId>LunaChat</artifactId>
   <version>3.0.16</version>
-  <description>A powerfull chat channel plugin with IME (Kana-Kanji conversion) support</description>
+  <description>A powerful chat channel plugin with IME (Kana-Kanji conversion) support</description>
   <url>https://github.com/ucchyocean/LunaChat</url>
 
   <licenses>
@@ -107,9 +107,6 @@
         <version>2.12.4</version>
         <configuration>
           <junitArtifactName>junit:junit</junitArtifactName>
-          <encoding>UTF-8</encoding>
-          <inputEncoding>UTF-8</inputEncoding>
-          <outputEncoding>UTF-8</outputEncoding>
           <argLine>-Dfile.encoding=UTF-8</argLine>
         </configuration>
       </plugin>

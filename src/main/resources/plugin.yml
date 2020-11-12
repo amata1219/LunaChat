@@ -1,9 +1,9 @@
-name: ${project.name}
+name: LunaChat
 main: com.github.ucchyocean.lc3.LunaChatBukkit
-version: ${project.version}
+version: 3.0.16
 authors: [ucchy, YukiLeafX, LazyGon, tomo1560]
-description: ${project.description}
-softdepend: [Vault, dynmap, Multiverse-Core, mcMMO]
+description: 'A powerful chat channel plugin with IME (Kana-Kanji conversion) and NickSystem (by Phoenix) support'
+softdepend: [Vault, dynmap, Multiverse-Core, mcMMO, NickSystem]
 
 commands:
   lunachat:

@@ -9,9 +9,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.github.ucchyocean.lc3.bridge.NickSystemBridge;
+import com.github.ucchyocean.lc3.member.ChannelMemberPlayer;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
 import com.github.ucchyocean.lc3.LunaChat;
@@ -43,6 +47,8 @@ public class ClickableFormat {
             "＜type=(SUGGEST_COMMAND|RUN_COMMAND) text=\"([^\"]*)\" hover=\"([^\"]*)\" command=\"([^\"]*)\"＞";
 
     private KeywordReplacer message;
+
+    private static final NickSystemBridge nicksystem = new NickSystemBridge();
 
     private ClickableFormat(KeywordReplacer message) {
         this.message = message;
@@ -116,26 +122,33 @@ public class ClickableFormat {
         }
 
         if ( member != null ) {
+                String displayName;
+                if (member instanceof ChannelMemberPlayer) {
+                    Player player = ((ChannelMemberPlayer) member).getPlayer();
+                    String nickname = nicksystem.getNickName(player);
+                    displayName = nickname == null ? player.getDisplayName() : nickname;
+                } else {
+                    displayName = member.getDisplayName();
+                }
 
-            // ChannelMember関連のキーワード置き換え
-            if ( withPlayerLink ) {
-                String playerPMPlaceHolder = String.format(
-                        PLACEHOLDER_SUGGEST_COMMAND,
-                        member.getDisplayName(),
-                        Messages.hoverPlayerName(member.getName()),
-                        String.format(TELL_COMMAND_TEMPLATE, member.getName()));
-                msg.replace("%displayname", playerPMPlaceHolder);
-                msg.replace("%username", playerPMPlaceHolder);
-                msg.replace("%player", String.format(
-                        PLACEHOLDER_SUGGEST_COMMAND,
-                        member.getName(),
-                        Messages.hoverPlayerName(member.getName()),
-                        String.format(TELL_COMMAND_TEMPLATE, member.getName())));
-            } else {
-                msg.replace("%displayname", member.getDisplayName());
-                msg.replace("%username", member.getDisplayName());
-                msg.replace("%player", member.getName());
-            }
+                if ( withPlayerLink ) {
+                    String playerPMPlaceHolder = String.format(
+                            PLACEHOLDER_SUGGEST_COMMAND,
+                            displayName,
+                            Messages.hoverPlayerName(member.getName()),
+                            String.format(TELL_COMMAND_TEMPLATE, member.getName()));
+                    msg.replace("%displayname", playerPMPlaceHolder);
+                    msg.replace("%username", playerPMPlaceHolder);
+                    msg.replace("%player", String.format(
+                            PLACEHOLDER_SUGGEST_COMMAND,
+                            member.getName(),
+                            Messages.hoverPlayerName(member.getName()),
+                            String.format(TELL_COMMAND_TEMPLATE, member.getName())));
+                } else {
+                    msg.replace("%displayname", displayName);
+                    msg.replace("%username", displayName);
+                    msg.replace("%player", member.getName());
+                }
 
             if ( msg.contains("%prefix") || msg.contains("%suffix") ) {
                 msg.replace("%prefix", member.getPrefix());

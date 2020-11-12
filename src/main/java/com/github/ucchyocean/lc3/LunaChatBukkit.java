@@ -14,6 +14,7 @@ import java.util.TreeSet;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
 
+import com.github.ucchyocean.lc3.bridge.*;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -23,10 +24,6 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
-import com.github.ucchyocean.lc3.bridge.DynmapBridge;
-import com.github.ucchyocean.lc3.bridge.McMMOBridge;
-import com.github.ucchyocean.lc3.bridge.MultiverseCoreBridge;
-import com.github.ucchyocean.lc3.bridge.VaultChatBridge;
 import com.github.ucchyocean.lc3.bukkit.BukkitEventListener;
 import com.github.ucchyocean.lc3.bukkit.BukkitEventSender;
 import com.github.ucchyocean.lc3.channel.ChannelManager;
@@ -71,7 +68,7 @@ public class LunaChatBukkit extends JavaPlugin implements PluginInterface {
         LunaChat.setMode(LunaChatMode.BUKKIT);
 
         // Metrics
-        Metrics metrics = new Metrics(this, 7936);
+        /*Metrics metrics = new Metrics(this, 7936);
         metrics.addCustomChart(new Metrics.DrilldownPie(
                 "minecraft_server_version", new Callable<Map<String, Map<String, Integer>>>() {
             public Map<String, Map<String, Integer>> call() throws Exception {
@@ -81,7 +78,7 @@ public class LunaChatBukkit extends JavaPlugin implements PluginInterface {
                 map.put(Bukkit.getName(), sub);
                 return map;
             }
-        }));
+        }));*/
 
         // 変数などの初期化
         config = new LunaChatConfig(getDataFolder(), getFile());
